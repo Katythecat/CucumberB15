@@ -212,7 +212,7 @@ then go to Login class and change username and password as well
 driver.findElement(By.id("txtUsername")).sendKeys(ConfigReader.getPropertyValue("username"));
 driver.findElement(By.id("txtPassword")).sendKeys(ConfigReader.getPropertyValue("password"));
 
-11. and the last step go to Constants create another method to make the path universal
+11. and the last step go to Constants create another method to make the FileInputStream path constants
 public static final String PROPERTY_FILE_PATH=System.getProperty("user.dir")+"/src/test/resources/Config/config.properties";
 
 then go to ConfigReader and change hard url to --> Constants.PROPERTY_FILE_PATH
