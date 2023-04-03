@@ -1,0 +1,224 @@
+Set up project for cucumber
+1.Create a new package using Maven
+2.Set up pom.xml
+    we can get all dependency from https://mvnrepository.com/
+    and search for Selenium , Cucumber java , Cucumber junit
+    after paste all dependencies reload it by clicking at little m on the right corner
+3.Set up plug in Cucumber for java
+    go to file-->settings-->plugins-->market place-->type cucumber for java and install it
+    for plugins we need to install only one time if the last project you have installed it already just skip this step
+
+
+In the project create
+
+    -resources directory
+        from src go to test folder right click-->new choose directory and choose resources enter
+        -in resources directory always create Config directory and Feature directory
+        1.Features directory : in Features we will store .features  example Login.feature
+        2.Config directory : in Config we will store .properties  example config.properties
+
+        : in Features we will create file in here to write a test case by using Gherkin language
+            we can create file by right click at Features directory --> New --> File
+             name it with .feature example Login.feature
+
+                Example
+                Feature: Login Functionalities
+                  Scenario: Valid Admin login
+                    Given open the browser and launch HRMS application
+                    When user enters valid email and valid password
+                    And click on login button
+                    Then user is logged in successfully into the application
+                    And Close the browser
+
+
+        : in Config we will store the data that we used to hard code in java, but we will store here in case when it changes
+        ,or we want to change the data later it is easy to do
+
+        Example
+        browserType=Firefox
+        url=http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login
+        username=admin
+        password=Hum@nhrm123
+
+
+
+
+    in java package
+        create the packages inside
+        1.StepDefinitions package
+
+        2.TestRunner package
+
+        3.Utils
+
+
+How to test
+1.in Features crate Login.feature and write a test case in it by using this form
+        Feature: Login Functionalities
+                          Scenario: Valid Admin login
+                            Given open the browser and launch HRMS application
+                            When user enters valid email and valid password
+                            And click on login button
+                            Then user is logged in successfully into the application
+                            And Close the browser
+
+2.in StepDefinitions create Login class
+
+3.in TestRunner create SmokeRunner class in this class we will map and glue Login.feature and
+Login class in StepDefinitions together
+    how to map and glue
+    before line public class SmokeRunner we will create here
+    @RunWith(Cucumber.class)
+    @CucumberOptions(feature="path",glue="what we want to glue with feature --> StepDefinitions" , dryRun=false)
+    how to find path right click at Login.feature-->copy path-->Path From Content Root then copy and paste
+    example src/test/resources/Feature
+
+    in the first time we run to generate the code we always set dryRun=false
+    but if we change or add any step in scenario we will change dryRun=true
+    bc we need cucumber generate only the new step that we added not run all steps
+    after we copy and paste new code then change dryRun to false again
+
+4.click run in SmokeRunner and cucumber will generate code for you
+    then copy all the codes given when then and paste in Login class
+
+5.in Login class after pass delete dummy code and start writhing your code
+
+6.After write all code go back at SmokeRunner and click run here
+    REMEMBER always run at SmokeRunner or what ever class we write in TestRunner
+
+    We all done but!!!!! this code is not perfect bc we still hard code inside this approach
+    we will make some change a little bit
+
+    After we observe in Login class we can see
+    1.Common methods
+        -Opening Browser
+        -Close Browser
+    2.Hard Coded Values
+        -url
+        -username
+        -password
+        -browserType
+    3.Constants
+        -1000(wait time)
+
+
+1. change run only one browser to multiple browser by using switch case
+    @Given("open the browser and launch HRMS application")
+        public void open_the_browser_and_launch_hrms_application() {
+            String browserType="Chrome";
+            switch (browserType){
+                case "Chrome" : driver=new ChromeDriver();break;
+                case "Firefox" : driver=new FirefoxDriver();break;
+                case "Edge" : driver=new EdgeDriver();
+            }
+            driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1000));
+
+
+        }
+
+2. add more case in Login.feature
+    And Close the browser
+    after this we need to map and glue again but change dryRun=true first
+    to auto generate code only the new case we added after this
+    click run in SmokeRunner for cucumber
+    auto generate code then copy and paste in Login class
+    delete dummy code and write driver.close();
+    after correct code we need to change dryRun=false again if not
+    your code always pass without run it in the application
+
+3.As we have hard code here exp. username, password, url, browser, and time to wait
+  then we will create another places to store this value
+
+4.in Utils package that we have to created we will create classes here
+    -create CommonMethods class
+    in this class create methods
+    public static WebDriver driver; //this we cut from Login and make it public static
+    public static void openBrowserAndLaunchApplication(){ //we create new methods
+
+    //after this we will go back to Login and cut the code that use for open the browser
+    and paste here in Utils
+
+5.go back to Login we will see error in every driver words
+in Login class extends CommonMethods
+all error in driver words are gone
+then in open browser method we will put the method from Utils that we create for
+open the browser here
+
+6.similar to close browser we will do the same thing
+go to CommonMethods class
+create one more method
+public static void closeBrowser(){
+        driver.close();
+    }
+and then go back to Login
+at the close browser method delete the last code and pass new method
+    closeBrowser();
+
+7.create new class in Utils name it Constants
+in constants create method
+
+public static final int WAIT_TIME = 1000;
+
+then go to CommonMethod and chang time 1000 to Constants.WAIT_TIME
+
+8.crate the place to store hard code
+go to Config directory that we have created
+right click and create file name it config.properties
+in this file we will create key pair value to store hard code
+like this
+
+browserType=Firefox
+url=http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login
+username=admin
+password=Hum@nhrm123
+
+then we need to interact non java file with java
+
+9.in Utils that we have crated
+create new class name it ConfigReader
+create new methods in this class to read the config.properties
+like this
+
+static Properties prop;
+    public static Properties readProperties() throws IOException {
+        FileInputStream fileInputStream=new FileInputStream("src/test/resources/Config/config.properties");
+        prop=new Properties();
+        prop.load(fileInputStream);
+
+        return prop;
+    }
+
+    after loading this file then we should create another method to
+    pass the key to get value
+    public static String getPropertyValue(String propKey){
+            return prop.getProperty(propKey);
+
+        }
+
+10. after creating ConfigReader we will pass the method instead of hard code that we have written
+go to CommonMethods class
+load property file --> ConfigReader.readProperties(); at the line on top of switch case
+
+String browserType="Chrome";  --> change "Chrome" to --> ConfigReader.getPropertyValue("browserType");
+String browserType=ConfigReader.getPropertyValue("browserType");
+
+at url line
+change full url to the method we created
+ driver.get(ConfigReader.getPropertyValue("url"));
+
+then go to Login class and change username and password as well
+driver.findElement(By.id("txtUsername")).sendKeys(ConfigReader.getPropertyValue("username"));
+driver.findElement(By.id("txtPassword")).sendKeys(ConfigReader.getPropertyValue("password"));
+
+11. and the last step go to Constants create another method to make the path universal
+public static final String PROPERTY_FILE_PATH=System.getProperty("user.dir")+"/src/test/resources/Config/config.properties";
+
+then go to ConfigReader and change hard url to --> Constants.PROPERTY_FILE_PATH
+
+Now nothing hard code in .java !!!!!!!!!!!!  easy right lol
+
+
+
+
