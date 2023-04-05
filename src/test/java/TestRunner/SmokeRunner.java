@@ -6,7 +6,19 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/Features",glue = "StepDefinitions",dryRun = false)
+@CucumberOptions(
+        features = "src/test/resources/Features",
+        glue = "StepDefinitions",
+        dryRun=false,
+        tags="@testcase1 or @testcase2"
+        //we can use like this tags="@tastcase1 or @testcase2" to run both of them
+
+        //monochrome=true,
+
+
+
+
+)
 
 public class SmokeRunner {
 }
