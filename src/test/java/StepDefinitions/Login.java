@@ -15,12 +15,11 @@ import java.io.IOException;
 public class Login extends CommonMethods {
 
 
-    @Given("open the browser and launch HRMS application")
+    /*@Given("open the browser and launch HRMS application")
     public void open_the_browser_and_launch_hrms_application() throws IOException {
-
         openBrowserAndLaunchApplication();
+    }*/  // we can delete it bc hooks take care of it already
 
-    }
     @When("user enters valid email and valid password")
     public void user_enters_valid_email_and_valid_password() {
         //driver.findElement(By.id("txtUsername")).sendKeys(ConfigReader.getPropertyValue("username"));
@@ -45,9 +44,9 @@ public class Login extends CommonMethods {
         }
 
     }
-    @Then("Close the browser")
+    /*@Then("Close the browser")
     public void close_the_browser() {
         closeBrowser();
-    }
+    }*/  // we can delete it bc hooks take care of it already
 
 }
