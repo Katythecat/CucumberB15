@@ -9,9 +9,9 @@ public class ConfigReader {
     static Properties prop;
     public static Properties readProperties() throws IOException {
 
-            FileInputStream file = new FileInputStream(Constants.PROPERTY_FILE_PATH);
-            prop = new Properties();
-            prop.load(file);
+        FileInputStream file = new FileInputStream(Constants.PROPERTY_FILE_PATH);
+        prop = new Properties();
+        prop.load(file);
 
         return prop;
     }

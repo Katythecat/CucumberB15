@@ -10,8 +10,9 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/Features",
         glue = "StepDefinitions",
         dryRun=false,
-        tags="@testcase1 or @testcase2"
-        //we can use like this tags="@tastcase1 or @testcase2" to run both of them
+        tags= "@testcase1 or @testcase2 and @smoke",
+        plugin={"pretty"}
+        //we can use like this tags="@testcase1 or @testcase2" to run both of them
 
         //monochrome=true,
 

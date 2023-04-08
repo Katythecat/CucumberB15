@@ -13,9 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencies>
-
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -37,10 +35,6 @@
             <version>7.11.2</version>
             <scope>test</scope>
         </dependency>
-
-
-
-
     </dependencies>
-
+    
 </project>
