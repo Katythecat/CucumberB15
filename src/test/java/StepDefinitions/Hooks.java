@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Hooks extends CommonMethods {
 
     @Before
-    public void preCondition() throws IOException {
+    public void preCondition() {
         openBrowserAndLaunchApplication();
     }
 
@@ -18,7 +18,8 @@ public class Hooks extends CommonMethods {
         closeBrowser();
     }
 
-    //@Before @After
+
+
 
 
 }

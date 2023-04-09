@@ -8,14 +8,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
 
 public class CommonMethods {
     public static WebDriver driver;
-    public static void openBrowserAndLaunchApplication() throws IOException {
+    public static void openBrowserAndLaunchApplication() {
         ConfigReader.readProperties();
 
         String browserType=ConfigReader.getPropertyValue("browserType");

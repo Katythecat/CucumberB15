@@ -1,0 +1,73 @@
+What I have learned today
+1.Hooks - we can define anywhere in project or StepDefinitions
+  benefits  - manage code work flow
+            - help reduce code redundancy
+  we will create Hooks class and extends CommonMethods bc
+         openBrowserAndLaunchApplication();
+         closeBrowser();
+         we create in CommonMethods
+
+  @Before
+      public void preCondition() {
+          openBrowserAndLaunchApplication();
+      }
+
+      @After
+      public void postCondition(){
+          closeBrowser();
+      }
+
+Remember : after we create Hooks we don't need
+        - Given open the browser and launch HRMS application
+        - And Close the browser
+
+    we can delete it in feature file and also can delete the code in StepDefinitions
+    bc Hooks will take care of those steps
+    for @After : help when test case is failed and always close the browser for us
+
+
+2. Background keyword
+    we use in Feature file
+    Background: This is used to define all the common steps that multiple
+      #             scenarios have in the same feature file ,
+      #             till the time flow is not broken
+
+
+3. We write common method for select drop down
+    we can handle drop down by using Select class and Options class
+    and then create method for it (if don't remember go back to Selenium)
+
+4. We learn how to create Scenario by using regular expression
+
+The ways we can use data in our codes.
+1.Hard code (java)
+2.property file (java)
+3.regular expression in " " double code like "admin" and "password" (cucumber)
+
+    Ex : When user enters valid "admin" and valid "Hum@nhrm123"
+
+    @When("user enters valid {string} and valid {string}")
+        public void user_enters_valid_and_valid(String name, String pass) {
+            WebElement usernameTextBox=driver.findElement(By.id("txtUsername"));
+            sendText(usernameTextBox,name);
+            WebElement passwordTextBox=driver.findElement(By.id("txtPassword"));
+            sendText(passwordTextBox,pass);
+
+
+
+
+
+
+
+
+
+
+4.scenario outline
+
+    1. Parameterization allows you to pass values into your tests at runtime,
+     rather than hardcoding them into the code itself.
+    This makes your tests more flexible and less brittle,
+     as you can modify the values without having to modify the code.
+
+    2. Data Driven is when we use any excel sheet to fitch data
+    or from any other external source into our code.
