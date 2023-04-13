@@ -10,11 +10,18 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/Features",
         glue = "StepDefinitions",
         dryRun=false,
-        tags= "@smoke2",
-        plugin={"pretty"},
-        //we can use like this tags="@testcase1 or @testcase2" to run both of them
+        tags= "@testcase2",
+        plugin={"pretty", "html:target/cucumber.html", "json:target/cucumber.json",
+        //this failed.txt file holds all the scenarios which are failed  during execution
+        "rerun:target/failed.txt"},
 
+        //we can use like this tags="@testcase1 or @testcase2" to run both of them
+        //to remove irrelavant information from console, you need to set monochrome to true
         monochrome=false
+
+        //pretty keywords prints the steps in the console to increase readability
+        //to generate the reports we need plugin of runner class
+
 
 
 

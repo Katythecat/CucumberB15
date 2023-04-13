@@ -1,0 +1,32 @@
+POM - page object model - An object Repository [It stores or holds all the
+WebElements specific to a particular page]
+
+it allows QA's to keep object repository -
+in simple language, QA's write all the locators of the page in respective class
+
+LoginPage -
+DashboardPage -
+
+Page object model - to have organised code and easy to maintain structure
+        according to it, we create separate class (page) according to the
+        screens available in the application and keep all the locators of this page
+        in it
+
+Parameterization testing
+    -- we can one add employee using feature file - 'instead of passing hardcoded data,
+    we pass values inside the scenario such as "abc" , "xyz" etc'
+
+    -- to increase the scope of testing, we use data driven testing concept
+    instead of scenario, we use scenario outline with examples table
+    -- in examples table, we pass multiple data sets using keys and values
+
+
+Data table -
+     it allows us to pass multiple sets of data without executing background
+
+Outline - Examples table - hooks and background execute every time as per the data set
+Scenario - Data table - hooks and background execute just one time
+
+Working with excel
+.xls - HSSF
+.xlsx - XSSF

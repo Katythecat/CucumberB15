@@ -1,5 +1,5 @@
 What I have learned today
-1.Hooks - we can define anywhere in project or StepDefinitions
+1.Hooks - Must be created in StepDefinitions
   benefits  - manage code work flow
             - help reduce code redundancy
   we will create Hooks class and extends CommonMethods bc
@@ -28,9 +28,21 @@ Remember : after we create Hooks we don't need
 
 2. Background keyword
     we use in Feature file
-    Background: This is used to define all the common steps that multiple
-      #             scenarios have in the same feature file ,
-      #             till the time flow is not broken
+    Background - it is applicable only for one feature file
+                 it means for every feature file background will be different
+                 steps which are common among all the scenarios of that feature file
+                 will be taken into background but make sure the flow is not broken.
+                 if the flow breaks, then we cannot take steps in background after that
+
+
+
+ Hooks VS background
+
+ Hooks are applicable for whole project (for all the feature files)
+ Background is applicable for one feature file and varies from file to file
+ First Hooks execute then background execute then scenario execute
+
+
 
 
 3. We write common method for select drop down
@@ -54,14 +66,6 @@ The ways we can use data in our codes.
             sendText(passwordTextBox,pass);
 
 
-
-
-
-
-
-
-
-
 4.scenario outline
 
     1. Parameterization allows you to pass values into your tests at runtime,
@@ -69,5 +73,5 @@ The ways we can use data in our codes.
     This makes your tests more flexible and less brittle,
      as you can modify the values without having to modify the code.
 
-    2. Data Driven is when we use any excel sheet to fitch data
+    2. Data Driven is when we use any excel sheet to fetch data
     or from any other external source into our code.
