@@ -30,3 +30,30 @@ Scenario - Data table - hooks and background execute just one time
 Working with excel
 .xls - HSSF
 .xlsx - XSSF
+
+Scenario Outline VS Data Table
+Scenario Outline if even one test case fail it will keep running to check all
+but for data table it will stop and won't execute the rest
+
+Scenario better to use for check the set of data like login page with multiple username and pass word
+Data Table good for check in step like this
+
+a Data Table is a way of presenting data in a table format within
+a Scenario or Scenario Outline. It is used to provide input data to a step,
+or to verify the output of a step. For example,
+you might have a scenario where you want to test the addition functionality
+of a calculator. You could use a Data Table to provide multiple input
+data sets and expected output values to the "addition" step.
+
+Scenario: Verify addition function of calculator
+   Given I have a calculator
+   When I enter the following numbers for addition:
+     | Number 1 | Number 2 |
+     | 2        | 3        |
+     | 5        | 7        |
+     | 10       | 15       |
+   Then the calculator should return the following results:
+     | Result  |
+     | 5       |
+     | 12      |
+     | 25      |

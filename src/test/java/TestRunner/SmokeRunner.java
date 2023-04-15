@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/Features",
         glue = "StepDefinitions",
         dryRun=false,
-        tags= "@testcase2",
+        tags= "@scenarioOutline",
         plugin={"pretty", "html:target/cucumber.html", "json:target/cucumber.json",
         //this failed.txt file holds all the scenarios which are failed  during execution
         "rerun:target/failed.txt"},

@@ -1,18 +1,11 @@
 package Pages;
 
 import Utils.CommonMethods;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class AddEmployeePage extends CommonMethods {
-
-
-    public AddEmployeePage(){
-
-        PageFactory.initElements(driver,this);//initialize the webelement of the current page
-    }
 
     @FindBy(id = "menu_pim_viewPimModule")
     public WebElement pimTab;
@@ -31,4 +24,8 @@ public class AddEmployeePage extends CommonMethods {
 
     @FindBy(id="btnSave")
     public WebElement saveBtn;
+
+    public AddEmployeePage(){
+        PageFactory.initElements(driver,this);//initialize the webelement of the current page
+    }
 }

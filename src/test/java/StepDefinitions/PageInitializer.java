@@ -5,7 +5,7 @@ import Pages.AddEmployeePage;
 import Pages.LoginPage;
 
 public class PageInitializer {
-    //this class will manage the opject creation of different page Object
+    //this class will manage the object creation of different page Object
     //in out Framework. Instead of calling the page obj again and again,
     //this class will take good care of that step
 

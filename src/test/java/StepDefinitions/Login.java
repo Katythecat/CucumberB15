@@ -36,7 +36,7 @@ public class Login extends CommonMethods {
 
     @Then("user is logged in successfully into the application")
     public void user_is_logged_in_successfully() {
-        boolean userLoggedIn = driver.findElement(By.id("welcome")).isDisplayed();
+        boolean userLoggedIn = login.welcomeIcon.isDisplayed();
         if (userLoggedIn) {
             System.out.println("User is logged in successfully");
         }
@@ -53,7 +53,6 @@ public class Login extends CommonMethods {
 
     @When("user enters username and password and verifies login")
     public void user_enters_username_and_password_and_verifies_login(DataTable dataTable) {
-        LoginPage login=new LoginPage();
         List<Map<String, String>> userCredentials = dataTable.asMaps();
         for (Map<String, String> userCreds : userCredentials) {
             String username = userCreds.get("username");
