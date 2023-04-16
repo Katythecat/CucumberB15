@@ -9,9 +9,12 @@ import org.openqa.selenium.WebElement;
 
 public class AddEmployee extends CommonMethods {
 
+
+
     @When("user clicks on PIM option")
     public void user_clicks_on_pim_option() {
         doClick(addEmployeePage.pimTab);
+       // System.out.println(10/0);
 
     }
     @When("user click on Add employee button")

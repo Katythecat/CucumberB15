@@ -2,6 +2,10 @@ package Utils;
 
 import StepDefinitions.PageInitializer;
 import io.cucumber.java.eo.Se;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.math3.exception.DimensionMismatchException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +13,11 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 
 
@@ -74,6 +82,33 @@ public class CommonMethods extends PageInitializer {
             }
         }
 
+    }
+
+    public static byte[] takeScreenshot(String imageName){
+        // remote webdriver is a class implement TakeScreenshot interface
+        TakesScreenshot ts=(TakesScreenshot) driver; //type casting
+
+        //This capture the screenshot and store it as byte array
+        byte[] picBytes = ts.getScreenshotAs(OutputType.BYTES);
+        //This capture the screenshot and stores it as a file in the sourceFile variable
+        File sourceFile = ts.getScreenshotAs(OutputType.FILE);
+
+        try { //The "FileUtils.copyFile" method is called to copy the "File" object to a new file location.
+            FileUtils.copyFile(sourceFile,
+                    new File(Constants.SCREENSHOT_FILEPATH+ imageName+" "+
+                            getTimeStamp("yyyy-MM-dd-HH-mm-ss")+".png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return picBytes;
+    }
+
+    public static String getTimeStamp(String pattern){
+        Date date=new Date();
+        SimpleDateFormat sdm=new SimpleDateFormat(pattern);
+
+        return sdm.format(date);
     }
 
 }

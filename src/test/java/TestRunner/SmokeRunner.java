@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/Features",
         glue = "StepDefinitions",
         dryRun=false,
-        tags= "@scenarioOutline",
+        tags= "@testcase2",
+        //"plugin" option is used to specify the formatting options for the output of the test results.
         plugin={"pretty", "html:target/cucumber.html", "json:target/cucumber.json",
         //this failed.txt file holds all the scenarios which are failed  during execution
         "rerun:target/failed.txt"},
