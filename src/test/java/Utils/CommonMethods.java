@@ -4,6 +4,7 @@ import StepDefinitions.PageInitializer;
 import io.cucumber.java.eo.Se;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.math3.exception.DimensionMismatchException;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -41,9 +42,17 @@ public class CommonMethods extends PageInitializer {
         initializePageObjects();
         // this will initialize all the pages we have in our page
         // PageInitializer class along with the launching of application
+        //To configure the file and pattern it has
+        DOMConfigurator.configure("log4j.xml");
+        Log.startTestCase("This is the beginning of my test case");
+        Log.info("My test case is executing right now");
+        Log.warning("My test case might have some trivial issue");
+
     }
 
     public static void closeBrowser(){
+        Log.info("This test case about to get completed");
+        Log.endTestCase("This test case is finished");
         driver.close();
     }
 
@@ -100,15 +109,14 @@ public class CommonMethods extends PageInitializer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return picBytes;
     }
 
     public static String getTimeStamp(String pattern){
         Date date=new Date();
-        SimpleDateFormat sdm=new SimpleDateFormat(pattern);
+        SimpleDateFormat sdf=new SimpleDateFormat(pattern);
 
-        return sdm.format(date);
+        return sdf.format(date);
     }
 
 }
