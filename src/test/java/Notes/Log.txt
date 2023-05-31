@@ -1,0 +1,119 @@
+How to create Log in Cucumber
+1.install dependency in pom.xml ---> log4j version 1.2.17
+
+	<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+2.create log4j.xml in IDE
+	how: right click on project name new->file-> name it log4j.xml
+
+3.in file log4j.xml paste code from the earlier class
+
+	<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="false"
+                     xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="fileAppender" class="org.apache.log4j.FileAppender">
+        <param name="Threshold" value="INFO"/>
+        <param name="File" value="logfile.log"/>
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+        </layout>
+    </appender>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="fileAppender"/>
+    </root>
+
+</log4j:configuration>
+
+4.Create Log class in Utils copy and paste
+
+	public static Logger Log = Logger.getLogger(Log.class.getName());
+    // When the test starts, I should print the logs
+    // When my tests stops, I should print the log
+    // If I want to print any message in between, I should print the logs
+
+    // This is to print log for the beginning of the test case,
+    // as we usually run so many test cases as a test suite
+
+    public static void startTestCase(String testCaseName){
+
+        Log.info("**********************************");
+        Log.info("*****************************************");
+        Log.info("****************  " + testCaseName + "  ******************");
+        Log.info("**********************************");
+        Log.info("*****************************************");
+    }
+
+    //This is to print log for the ending of the test case
+
+    public static void endTestCase(String testCaseName){
+        Log.info("##################################");
+        Log.info("##########################################");
+        Log.info("############   " + testCaseName + "  ################");
+        Log.info("##########################");
+        Log.info("##########################################");
+    }
+
+    // Need to create these methods, so that they can be called
+
+    public static void info(String message) {
+
+        Log.info(message);
+
+    }
+
+    public static void warning(String message) {
+
+        Log.warn(message);
+
+    }
+
+    public static void error(String message) {
+
+        Log.error(message);
+
+    }
+
+    public static void fatal(String message) {
+
+        Log.fatal(message);
+
+    }
+
+    public static void debug(String message) {
+
+        Log.debug(message);
+
+    }
+
+
+5.Configure Log class in common methods in openBrowserAndLaunchApplication
+
+	DOMConfigurator.configure("log4j.xml");
+        Log.startTestCase("This is the beginning of my test case");
+        Log.info("My test case is executing right now");
+        Log.warning("My test case might have some trivial issue");
+
+	in closer Browser
+
+	Log.info("This test case about to get completed");
+        Log.endTestCase("This test case is finished");
+
+
+6.click test in maven
+
+7.you will see logfile.log has been generated
+
+8.click on it and see the message in this file
+	we use this to track bug and communicate wiht dev
+

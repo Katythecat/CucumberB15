@@ -1,0 +1,77 @@
+JDBC notes-
+recap
+mysql connector java added
+
+we need 3 things to work with DB
+    address of DB-url
+    Name of db
+    username,password
+
+Connection class- to establish the connection with DB
+make a statement- it allows us to send tht query to the DB
+resultset- the result will be stored in its object
+
+rset.next() - to shift the cursor on to the next line or next row
+
+resultestmetadata- will give you the complete information table
+    -it contains the information about the result such as how many columns are there,
+    how many rows, name of columns/row etc.
+
+ResultSetMetaData is an interface in Java that provides metadata information
+about the columns in a ResultSet object obtained from a SQL query.    GPT
+
+ResultSet#getMetaData() is a method that returns a ResultSetMetaData object
+that describes the metadata of the ResultSet object. This method can be called
+on a ResultSet object after it has been executed and before any data
+has been retrieved from it. Once you have the ResultSetMetaData object,
+you can use its methods to retrieve information about the columns in the ResultSet,
+such as their names, types, and sizes.
+- .getColumnCount() --> its method
+- .getColumnName() --> its method
+
+------------------
+to integrate with framework , we will pass url,username, password in config.reader
+
+IN the method
+
+The purpose of this code is to iterate through a JDBC ResultSet (rSet) and
+convert each row into a Map<String,String> object, and then add each Map to
+an ArrayList. Here's an explanation of why ArrayList and LinkedHashMap are used:
+
+ArrayList:
+The code uses an ArrayList because it needs to store a collection of
+Map<String,String> objects. ArrayList is a class that implements the List interface,
+which means it's a resizable array. It allows us to store objects
+in an ordered sequence and access them by their index. In this case,
+we need to add each Map to the ArrayList as we iterate through the ResultSet.
+
+LinkedHashMap:
+The code uses a LinkedHashMap because it needs to preserve the order of the columns
+in each row. A LinkedHashMap is a subclass of HashMap that maintains a doubly-linked
+list of entries, so it has predictable iteration order.
+When iterating over the columns in each row of the ResultSet,
+we create a new LinkedHashMap to store the key-value pairs for that row.
+By using a LinkedHashMap, we ensure that the order of the columns in the
+ResultSet is preserved when we convert each row to a Map.
+If we used a regular HashMap, the order of the columns would not be preserved.
+
+
+Why we use ArrayList instead of LinkedList
+
+This code is using an ArrayList instead of a LinkedList because the ArrayList
+is better suited for appending elements to the end of the list,
+which is the primary operation being performed in this code.
+
+In the code, the while loop iterates over the ResultSet and creates a new LinkedHashMap
+for each row. Then, each LinkedHashMap is added to the listFromRset ArrayList
+using the add() method. Because the ArrayList is implemented as a resizable array,
+adding elements to the end of the list is a fast operation.
+
+In contrast, using a LinkedList to store the Map objects would result in
+slower performance because adding elements to the end of a LinkedList involves
+traversing the entire list to find the last element, which can take longer as
+the list gets larger.
+
+Therefore, in this case, an ArrayList is a better choice because it provides
+better performance for adding elements to the end of the list, which is the primary
+operation being performed in the code.
