@@ -22,8 +22,13 @@ public class AddEmployeePage extends CommonMethods {
     @FindBy(id="lastName")
     public WebElement lastnameTextBox;
 
+    @FindBy(id="employeeId")
+    public WebElement empIDlocator;
+
     @FindBy(id="btnSave")
     public WebElement saveBtn;
+
+
 
     public AddEmployeePage(){
         PageFactory.initElements(driver,this);//initialize the webelement of the current page

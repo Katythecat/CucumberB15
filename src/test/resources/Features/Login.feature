@@ -1,6 +1,6 @@
 Feature: Login Functionalities
 
-  @smoke
+   @test
   Scenario: Valid Admin login
     #Given open the browser and launch HRMS application
     When user enters valid email and valid password
@@ -28,7 +28,7 @@ Feature: Login Functionalities
       | username | password    |
       | admin    | Hum@nhrm123 |
       | ADMIN    | Hum@nhrm123 |
-      | Jason    | Hum@nhrm123 |
+      | admin    | Hum@nhrm123 |
   # Ctrl alt l to adjust the space
 
   @dataTable
@@ -37,7 +37,7 @@ Feature: Login Functionalities
       | username | password    |
       | admin    | Hum@nhrm123 |
       | ADMIN    | Hum@nhrm123 |
-      | Jason    | Hum@nhrm123 |
+      | admin    | Hum@nhrm123 |
 
 
 

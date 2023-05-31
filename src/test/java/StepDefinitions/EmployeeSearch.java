@@ -23,6 +23,7 @@ public class EmployeeSearch extends CommonMethods {
     @When("user see employee information is displayed")
     public void user_see_employee_information_is_displayed() {
         System.out.println("The employee is displayed");
+        //System.out.println(10/0);
 
     }
 

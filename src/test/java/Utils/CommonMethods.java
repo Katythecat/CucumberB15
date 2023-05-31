@@ -5,14 +5,15 @@ import io.cucumber.java.eo.Se;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,17 +29,25 @@ public class CommonMethods extends PageInitializer {
         ConfigReader.readProperties();
 
         String browserType=ConfigReader.getPropertyValue("browserType");
-        switch (browserType){
+        switch (browserType) {
             case "Chrome":
-                driver=new ChromeDriver(); break;
+                ChromeOptions ops = new ChromeOptions();
+                ops.addArguments("--no-sandbox");
+                ops.addArguments("--remote-allow-origins=*");
+                if (ConfigReader.getPropertyValue("Headless").equals("true")){
+                ops.addArguments("--headless=new");
+        }
+                driver=new ChromeDriver(ops); break;
             case "Firefox" :
                 driver=new FirefoxDriver(); break;
             case "Edge" :
                 driver=new EdgeDriver(); break;
+            default:
+                throw new RuntimeException( "browser not found");
         }
         driver.manage().window().maximize();
         driver.get(ConfigReader.getPropertyValue("url"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Constants.WAIT_TIME));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.WAIT_TIME));
         initializePageObjects();
         // this will initialize all the pages we have in our page
         // PageInitializer class along with the launching of application
@@ -53,11 +62,33 @@ public class CommonMethods extends PageInitializer {
     public static void closeBrowser(){
         Log.info("This test case about to get completed");
         Log.endTestCase("This test case is finished");
-        driver.close();
+        driver.quit();
+    }
+
+    public static WebDriverWait getWait(){
+        WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(Constants.IMPLICIT_WAIT));
+        return wait;
+        //this is method gets time of explicit wait
+    }
+
+    public static void waitForClickAbility(WebElement element){
+        getWait().until(ExpectedConditions.elementToBeClickable(element));
+        // this method wait until element will be clickable
     }
 
     public static void doClick(WebElement element){
+        waitForClickAbility(element);
         element.click();
+    }
+
+    private static JavascriptExecutor getJSExecutor() {
+        JavascriptExecutor js=(JavascriptExecutor) driver;
+        return js;
+    }
+
+    public static void jsClick(WebElement element){
+        getJSExecutor().executeScript("argument[0].click();",element);
+        //method click using jsExecutor
     }
 
     public static void sendText(WebElement element, String text){

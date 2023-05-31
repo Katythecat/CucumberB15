@@ -10,15 +10,19 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage extends CommonMethods {
 
 
+    // @FindBy class from selenium
+    // we create this object repository
     @FindBy(id="txtUsername")
     public WebElement usernameTextBox;
-
 
     @FindBy(id="txtPassword")
     public WebElement passwordTextBox;
 
     @FindBy(id="btnLogin")
     public WebElement loginBtn ;
+
+    @FindBy(id="spanMessage")
+    public WebElement actualErrorMsg;
 
     @FindBy(id="welcome")
     public WebElement welcomeIcon;

@@ -37,10 +37,10 @@ public class Login extends CommonMethods {
     @Then("user is logged in successfully into the application")
     public void user_is_logged_in_successfully() {
         boolean userLoggedIn = login.welcomeIcon.isDisplayed();
+        System.out.println(userLoggedIn);
         if (userLoggedIn) {
-            System.out.println("User is logged in successfully");
+           System.out.println("User is logged in successfully");
         }
-
     }
 
     @When("user enters valid {string} and valid {string}")

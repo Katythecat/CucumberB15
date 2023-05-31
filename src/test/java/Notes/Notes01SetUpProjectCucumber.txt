@@ -2,7 +2,8 @@ Set up project for cucumber
 1.Create a new package using Maven
 2.Set up pom.xml
     we can get all dependency from https://mvnrepository.com/
-    and search for Selenium , Cucumber java , Cucumber junit
+    and search for selenium-java , cucumber-java , cucumber-junit , poi, poi-ooxml, commons-io, log4j
+    and maven-surefire-plugin, maven-cucumber-reporting
     after paste all dependencies reload it by clicking at little m on the right corner
 3.Set up plug in Cucumber for java
     go to file-->settings-->plugins-->market place-->type cucumber for java and install it
